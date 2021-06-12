@@ -1,0 +1,16 @@
+{
+  "name": "phone-app",
+  "displayName": "phone-app",
+  "expo": {
+    "name": "phone-app",
+    "slug": "phone-app",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "splash": {
+    "image": "./images/logo.png",
+    "backgroundColor": "white"
+  }
+}
