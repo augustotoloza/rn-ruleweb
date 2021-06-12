@@ -7,9 +7,11 @@ import { createStackNavigator } from "@react-navigation/stack";
 import Homescreen from "./Homescreen";
 import Redeemed from "./Redeemed";
 
+
 const Stack = createStackNavigator();
 
 function App() {
+
   return (
     <NavigationContainer>
       <Stack.Navigator
