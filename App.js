@@ -7,10 +7,20 @@ import { createStackNavigator } from "@react-navigation/stack";
 import Homescreen from "./Homescreen";
 import Redeemed from "./Redeemed";
 import Error from "./Error";
-
+import { Comfortaa_700Bold,  Comfortaa_400Regular, useFonts } from '@expo-google-fonts/comfortaa';
+import { OpenSans_400Regular } from '@expo-google-fonts/open-sans';
 const Stack = createStackNavigator();
 
 function App() {
+  let [fontsLoaded] = useFonts({
+    Comfortaa_400Regular,
+    Comfortaa_700Bold,
+    OpenSans_400Regular
+  });
+
+  if (!fontsLoaded) {
+    return null;
+  }
 
   return (
     <NavigationContainer>

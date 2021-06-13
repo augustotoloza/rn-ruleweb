@@ -6,10 +6,10 @@ import { Comfortaa_700Bold, useFonts } from '@expo-google-fonts/comfortaa';
 const HeadingText = styled.Text`
   font-weight: bold;
   font-size: 18px;
-  line-height: 133%;
+  line-height: 24px;
   letter-spacing: 0.15px;
   color: #002350;
-  margin-bottom: 1em;
+  margin-bottom: 16px;
 `;
 
 const Heading = (props) => {

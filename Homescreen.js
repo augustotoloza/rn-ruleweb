@@ -11,7 +11,6 @@ import styled from "styled-components/native";
 import logo from "./images/logo-tap.png";
 
 const HeaderLogo = styled.Image`
-  display: block;
   margin: 44px auto 60px;
   width: 157px;
   height: 53px;
