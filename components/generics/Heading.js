@@ -13,7 +13,7 @@ const HeadingText = styled.Text`
 `;
 
 const Heading = (props) => {
-  let [fontsLoaded] = useFonts({
+  useFonts({
     Comfortaa_700Bold
   });
   return (

@@ -3,7 +3,7 @@ import { SafeAreaView, StyleSheet, TextInput, Text } from "react-native";
 import {  OpenSans_400Regular, useFonts } from '@expo-google-fonts/open-sans';
 
 const CustomInput = (props) => {
-  let [fontsLoaded] = useFonts({
+  useFonts({
     OpenSans_400Regular
   });
   return (
