@@ -17,7 +17,7 @@ const HeaderLogo = styled.Image`
 `;
 const Wrapper = styled.View`
   background: white;
-  padding: 0 16px 24px;
+  padding: 16px 24px;
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;

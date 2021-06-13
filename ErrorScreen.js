@@ -17,12 +17,8 @@ import {  OpenSans_400Regular, useFonts } from '@expo-google-fonts/open-sans';
 const Wrapper = styled.View`
   background: white;
   display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  justify-content: center;
-  align-content: center;
-  align-items: center;
   height: 100%;
+  padding: 16px;
 `;
 
 const Code = styled.Text`
@@ -35,16 +31,15 @@ const Code = styled.Text`
 const titleTextValue = "Este cliente no tiene premios";
 const descriptionTextValue = "Para ganar un premio debe participar en www.rulewebtap.com";
 
-export default function Redeemed({navigation}) {
+export default function ErrorScreen({navigation}) {
   useFonts({
     OpenSans_400Regular
   });
   return (
       <Wrapper>
         <Code style={{fontFamily: 'OpenSans_400Regular'}}>Codigo 123</Code>
-        <View style={{flexGrow: 1}}>
+        <View style={{flexGrow: 1, justifyContent: 'center'}}>
           <Message imgPath={err} titleText={titleTextValue} descriptionText={descriptionTextValue}/>
-          <Heading title="Error!"/>
         </View>
         <CustomTouchableOpacity title="Hello World!" behavior={() => navigation.navigate("Home")}/>
       </Wrapper>

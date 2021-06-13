@@ -6,9 +6,10 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import Homescreen from "./Homescreen";
 import Redeemed from "./Redeemed";
-import Error from "./Error";
+import ErrorScreen from "./ErrorScreen";
 import { Comfortaa_700Bold,  Comfortaa_400Regular, useFonts } from '@expo-google-fonts/comfortaa';
 import { OpenSans_400Regular } from '@expo-google-fonts/open-sans';
+import Dashboard from "./Dashboard";
 const Stack = createStackNavigator();
 
 function App() {
@@ -29,9 +30,10 @@ function App() {
           headerShown: false,
         }}
       >
-        <Stack.Screen name="Home" component={Homescreen} />
-        <Stack.Screen name="Premio Canjeado" component={Redeemed} />
-        <Stack.Screen name="Err" component={Error} />
+        {/* <Stack.Screen name="Home" component={Homescreen} /> */}
+        <Stack.Screen name="Dashboard" component={Dashboard} />
+        {/* <Stack.Screen name="Premio Canjeado" component={Redeemed} />
+        <Stack.Screen name="Err" component={ErrorScreen} /> */}
       </Stack.Navigator>
     </NavigationContainer>
   );

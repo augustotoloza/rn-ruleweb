@@ -10,7 +10,8 @@
     ],
     "splash": {
       "image": "./images/splash.png",
-      "backgroundColor": "white"
+      "backgroundColor": "#fffff",
+      "resizeMode": "contain"
     }
   }
 }

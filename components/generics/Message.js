@@ -8,8 +8,6 @@ import styled from "styled-components/native";
 const Icon = styled.Image`
   width: 216px;
   height: 204px;
-  left: 72px;
-  top: 60px;
 `;
 
 const Title = styled.Text`
@@ -19,6 +17,7 @@ const Title = styled.Text`
   text-align: center;
   letter-spacing: 0.15px;
   color: #353535;
+  margin: 0 0 16px;
 `;
 
 const Paragraph = styled.Text`
@@ -29,16 +28,23 @@ const Paragraph = styled.Text`
   color: #353535;
 `;
 
+const Centered = styled.View`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+
 const Message = (props) => {
   useFonts({
     Comfortaa_700Bold, Comfortaa_400Regular
   });
   return (
-    <SafeAreaView>
+    <Centered>
       <Icon source={props.imgPath}/>
       <Title style={{fontFamily: 'Comfortaa_700Bold'}}>{props.titleText}</Title>
       <Paragraph style={{fontFamily: 'Comfortaa_400Regular'}}>{props.descriptionText}</Paragraph>
-    </SafeAreaView>
+    </Centered>
   );
 };
 

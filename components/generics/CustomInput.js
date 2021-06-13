@@ -12,7 +12,7 @@ const CustomInput = (props) => {
         style={styles.input}
         placeholder={props.placeholder}
       />
-      <Text style={{paddingHorizontal: 30, fontSize: 12, color: '#353535', letterSpacing: -0.2}}>
+      <Text style={{paddingHorizontal: 15, fontSize: 12, color: '#353535', letterSpacing: -0.2}}>
         {props.infoText}
       </Text>
     </SafeAreaView>
