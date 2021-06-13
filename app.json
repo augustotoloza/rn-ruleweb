@@ -7,10 +7,10 @@
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"
-    ]
-  },
-  "splash": {
-    "image": "./images/logo.png",
-    "backgroundColor": "white"
+    ],
+    "splash": {
+      "image": "./images/splash.png",
+      "backgroundColor": "white"
+    }
   }
 }
