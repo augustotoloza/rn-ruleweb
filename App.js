@@ -30,10 +30,10 @@ function App() {
           headerShown: false,
         }}
       >
-        {/* <Stack.Screen name="Home" component={Homescreen} /> */}
+        <Stack.Screen name="Home" component={Homescreen} />
         <Stack.Screen name="Dashboard" component={Dashboard} />
-        {/* <Stack.Screen name="Premio Canjeado" component={Redeemed} />
-        <Stack.Screen name="Err" component={ErrorScreen} /> */}
+        <Stack.Screen name="Premio Canjeado" component={Redeemed} />
+        <Stack.Screen name="Err" component={ErrorScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

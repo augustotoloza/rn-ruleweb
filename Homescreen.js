@@ -43,7 +43,7 @@ export default function Homescreen({ navigation }) {
       </View>
       <CustomTouchableOpacity
         title="Iniciar Sesion"
-        behavior={() => navigation.navigate("Premio Canjeado")}
+        behavior={() => navigation.navigate("Dashboard")}
       />
     </Wrapper>
   );
