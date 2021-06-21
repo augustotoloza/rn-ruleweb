@@ -40,7 +40,7 @@ export default function Result({ route, navigation }) {
       ? `Entregá a ${prize.playerEmail} un ${prize.title}`
       : "";
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ display: "flex", flex: 1 }}>
       <Wrapper>
         <Code style={{ fontFamily: "OpenSans_400Regular" }}>
           Código {prize.token}

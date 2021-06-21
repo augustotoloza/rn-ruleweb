@@ -2,7 +2,7 @@ import "react-native-gesture-handler";
 //import { StatusBar } from 'expo-status-bar';
 import React from "react";
 //import { NavigationContainer } from '@react-navigation/native';
-import { StyleSheet, Text, View } from "react-native";
+import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 //import { LinearGradient } from 'expo-linear-gradient';
 //import CustomInput from './components/generics/CustomInput';
 //import CustomButton from './components/generics/CustomButton';
@@ -28,28 +28,35 @@ const Code = styled.Text`
   color: #8495aa;
 `;
 
-
-
 export default function ErrorScreen({ route, navigation }) {
   useFonts({
     OpenSans_400Regular,
   });
-  const {error} = route.params;
-  const titleTextValue = error === "Incorrect Token" ? "El token ingresado es incorrecto" : error === "Email incorrect" ? "Este cliente no tiene premios" : "Hubo un error";
-const descriptionTextValue = error ? "Para ganar un premio debe participar en www.rulewebtap.com" : "Intenta nuevamente";
+  const { error } = route.params;
+  const titleTextValue =
+    error === "Incorrect Token"
+      ? "El token ingresado es incorrecto"
+      : error === "Email incorrect"
+      ? "Este cliente no tiene premios"
+      : "Hubo un error";
+  const descriptionTextValue = error
+    ? "Para ganar un premio debe participar en www.rulewebtap.com"
+    : "Intenta nuevamente";
   return (
-    <Wrapper>
-      <View style={{ flexGrow: 1, justifyContent: "center" }}>
-        <Message
-          imgPath={err}
-          titleText={titleTextValue}
-          descriptionText={descriptionTextValue}
+    <SafeAreaView style={{ display: "flex", flex: 1 }}>
+      <Wrapper>
+        <View style={{ flexGrow: 1, justifyContent: "center" }}>
+          <Message
+            imgPath={err}
+            titleText={titleTextValue}
+            descriptionText={descriptionTextValue}
+          />
+        </View>
+        <CustomTouchableOpacity
+          title="Volver"
+          behavior={() => navigation.navigate("Dashboard")}
         />
-      </View>
-      <CustomTouchableOpacity
-        title="Volver"
-        behavior={() => navigation.navigate("Dashboard")}
-      />
-    </Wrapper>
+      </Wrapper>
+    </SafeAreaView>
   );
 }

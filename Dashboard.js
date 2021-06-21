@@ -116,7 +116,7 @@ export default function Dashboard({ navigation }) {
   };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ display: "flex", flex: 1 }}>
       <Wrapper>
         <DashboardHeader
           onPress={() => setIsAuthorized(false)}
