@@ -20,6 +20,7 @@ import styled from "styled-components/native";
 import RulewebContext from "./RulewebContext";
 import PrizeStat from "./components/generics/PrizeStat";
 import APIHandler from "./APIHandler";
+import { EmailIsValid, isComplete } from "./Validations";
 
 const Wrapper = styled.View`
   background: white;
@@ -63,6 +64,7 @@ export default function Dashboard({ navigation }) {
   const [userEmail, setUserEmail] = useState("");
   const [prizeToken, setPrizeToken] = useState("");
   const [shopRewards, setShopRewards] = useState("");
+  const [userEmailInp, setUserEmailInp] = useState("");
   const { isAuthorized, setIsAuthorized, shopData, email } =
     useContext(RulewebContext);
   useFonts({
@@ -77,6 +79,10 @@ export default function Dashboard({ navigation }) {
     const res = await APIHandler.post("/rewards/byShop", { email });
     setShopRewards(res.data);
   }
+  const handleUserEmail = (inp) => {
+    EmailIsValid(inp) && setUserEmail(inp);
+    setUserEmailInp(inp);
+  };
   const handleSubmit = (e) => {
     APIHandler.post("/rewards/redeem", {
       token: prizeToken,
@@ -84,6 +90,7 @@ export default function Dashboard({ navigation }) {
       shop: shopData.email,
     })
       .then((res) => {
+        console.log(res.data);
         if (res.status === 200) {
           navigation.navigate("Premio Canjeado");
         }
@@ -114,8 +121,8 @@ export default function Dashboard({ navigation }) {
           >
             <CustomInput
               placeholder="Email"
-              value={userEmail}
-              onChangeText={(txt) => setUserEmail(txt)}
+              value={userEmailInp}
+              onChangeText={(txt) => handleUserEmail(txt)}
             />
             <CustomInput
               placeholder="Codigo de canje"
@@ -127,6 +134,7 @@ export default function Dashboard({ navigation }) {
           <CustomTouchableOpacity
             title="Canjear"
             behavior={handleSubmit}
+            disabled={!isComplete(userEmail, prizeToken)}
           />
         </ContentWrapper>
         <PrizeStat

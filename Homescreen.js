@@ -8,6 +8,8 @@ import styled from "styled-components/native";
 import logo from "./images/logo-tap.png";
 import APIHandler from "./APIHandler";
 import RulewebContext from "./RulewebContext";
+import { EmailIsValid, isComplete } from "./Validations";
+import { useState } from "react/cjs/react.development";
 
 const HeaderLogo = styled.Image`
   margin: 44px auto 60px;
@@ -26,7 +28,21 @@ const Wrapper = styled.View`
   height: 100%;
 `;
 export default function Homescreen({ navigation }) {
-  const { email, setEmail, password, setPassword, isAuthorized, setIsAuthorized, shopData, setShopData } = useContext(RulewebContext);
+  const {
+    email,
+    setEmail,
+    password,
+    setPassword,
+    isAuthorized,
+    setIsAuthorized,
+    shopData,
+    setShopData,
+  } = useContext(RulewebContext);
+  const [emailInp, setEmailInp] = useState("");
+  const handleEmail = (inp) => {
+    EmailIsValid(inp) && setEmail(inp);
+    setEmailInp(inp);
+  };
   const handleSubmit = (e) => {
     APIHandler.post("/shops/login", { email, password })
       .then((res) => {
@@ -34,7 +50,7 @@ export default function Homescreen({ navigation }) {
           setIsAuthorized(true);
           setShopData({
             logo: res.data.logo.url,
-            email: res.data.email
+            email: res.data.email,
           });
           navigation.navigate("Dashboard");
         }
@@ -51,18 +67,23 @@ export default function Homescreen({ navigation }) {
         <CustomInput
           placeholder="Email"
           infoText="Tu email es el mismo que el de la App"
-          value={email}
-          onChangeText={(txt) => setEmail(txt)}
+          value={emailInp}
+          onChangeText={(txt) => handleEmail(txt)}
         />
         <CustomInput
           placeholder="PIN"
           infoText="Tu clave de seguridad es la misma que el de la App"
+          secureTextEntry={true}
           value={password}
           name="password"
           onChangeText={(txt) => setPassword(txt)}
         />
       </View>
-      <CustomTouchableOpacity title="Iniciar Sesion" behavior={handleSubmit} />
+      <CustomTouchableOpacity
+        title="Iniciar Sesion"
+        disabled={!isComplete(email, password)}
+        behavior={handleSubmit}
+      />
     </Wrapper>
   );
 }

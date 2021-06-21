@@ -8,21 +8,27 @@ const CustomTouchableOpacity = (props) => {
   });
 
   return (
-    <TouchableOpacity onPress={props.behavior} style={styles.CustomTouchableOpacityContainer}>
-      <Text style={styles.CustomTouchableOpacityText}>{props.title}</Text>
+    <TouchableOpacity onPress={props.behavior} disabled={props.disabled} style={props.disabled === true ? styles.disabled : styles.active}>
+      <Text style={styles.text}>{props.title}</Text>
     </TouchableOpacity>
     )
 };
   
   const styles = StyleSheet.create({
     // ...
-    CustomTouchableOpacityContainer: {
+    active: {
       elevation: 8,
-      backgroundColor: "#C9C9C9",
+      backgroundColor: "#14D2B9",
       borderRadius: 16,
       paddingVertical: 14,
     },
-    CustomTouchableOpacityText: {
+    disabled: {
+      backgroundColor: "#C9C9C9",
+      elevation: 8,
+      borderRadius: 16,
+      paddingVertical: 14,
+    },
+    text: {
       fontSize: 14,
       color: "#fff",
       fontWeight: "bold",
