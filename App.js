@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import Homescreen from "./Homescreen";
-import Redeemed from "./Redeemed";
+import Result from "./Result";
 import ErrorScreen from "./ErrorScreen";
 import {
   Comfortaa_700Bold,
@@ -52,8 +52,8 @@ function App() {
           {isAuthorized ? (
             <>
               <Stack.Screen name="Dashboard" component={Dashboard} />
-              <Stack.Screen name="Premio Canjeado" component={Redeemed} />
-              <Stack.Screen name="Err" component={ErrorScreen} />
+              <Stack.Screen name="Result" component={Result} />
+              <Stack.Screen name="Error" component={ErrorScreen} />
             </>
           ) : (
             <>

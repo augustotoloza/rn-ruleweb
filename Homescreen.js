@@ -10,6 +10,7 @@ import APIHandler from "./APIHandler";
 import RulewebContext from "./RulewebContext";
 import { EmailIsValid, isComplete } from "./Validations";
 import { useState } from "react/cjs/react.development";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const HeaderLogo = styled.Image`
   margin: 44px auto 60px;
@@ -60,30 +61,32 @@ export default function Homescreen({ navigation }) {
       });
   };
   return (
-    <Wrapper>
-      <HeaderLogo source={logo} />
-      <Heading title="Iniciar Sesión" />
-      <View style={{ flexGrow: 1, rowGap: 24 }}>
-        <CustomInput
-          placeholder="Email"
-          infoText="Tu email es el mismo que el de la App"
-          value={emailInp}
-          onChangeText={(txt) => handleEmail(txt)}
+    <SafeAreaView style={{display: "flex", flex: 1}}>
+      <Wrapper>
+        <HeaderLogo source={logo} />
+        <Heading title="Iniciar Sesión" />
+        <View style={{ flexGrow: 1, rowGap: 24 }}>
+          <CustomInput
+            placeholder="Email"
+            infoText="Tu email es el mismo que el de la App"
+            value={emailInp}
+            onChangeText={(txt) => handleEmail(txt)}
+          />
+          <CustomInput
+            placeholder="PIN"
+            infoText="Tu clave de seguridad es la misma que el de la App"
+            secureTextEntry={true}
+            value={password}
+            name="password"
+            onChangeText={(txt) => setPassword(txt)}
+          />
+        </View>
+        <CustomTouchableOpacity
+          title="Iniciar Sesion"
+          disabled={!isComplete(email, password)}
+          behavior={handleSubmit}
         />
-        <CustomInput
-          placeholder="PIN"
-          infoText="Tu clave de seguridad es la misma que el de la App"
-          secureTextEntry={true}
-          value={password}
-          name="password"
-          onChangeText={(txt) => setPassword(txt)}
-        />
-      </View>
-      <CustomTouchableOpacity
-        title="Iniciar Sesion"
-        disabled={!isComplete(email, password)}
-        behavior={handleSubmit}
-      />
-    </Wrapper>
+      </Wrapper>
+    </SafeAreaView>
   );
 }

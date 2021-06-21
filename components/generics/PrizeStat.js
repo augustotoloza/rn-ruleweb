@@ -7,7 +7,6 @@ import styled from "styled-components/native";
 const Wrapper = styled.View`
   background: #f3f6fa;
   padding: 16px;
-  border-collapse: collapse;
   width: 100%;
   display: flex;
   align-items: center;
