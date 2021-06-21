@@ -69,10 +69,7 @@ export default function Homescreen({ navigation }) {
               "Verifica tus datos e intenta nuevamente",
               [{ text: "OK", onPress: () => clearInputs() }]
             )
-          : () => {
-              alert("Hubo un error. Verifica tus datos e intenta nuevamente.");
-              clearInputs();
-            };
+          : alert("Hubo un error. Verifica tus datos e intenta nuevamente.");
       });
   };
   return (
