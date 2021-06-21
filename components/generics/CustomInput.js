@@ -11,6 +11,9 @@ const CustomInput = (props) => {
       <TextInput
         style={styles.input}
         placeholder={props.placeholder}
+        name={props.name}
+        value={props.value}
+        onChangeText={props.onChangeText}
       />
       <Text style={{paddingHorizontal: 15, fontSize: 12, color: '#353535', letterSpacing: -0.2}}>
         {props.infoText}

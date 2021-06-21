@@ -1,110 +1,142 @@
 import "react-native-gesture-handler";
-import { StatusBar } from "expo-status-bar";
-import React from "react";
-import { StyleSheet, Text, View, Image } from "react-native";
-import { Comfortaa_700Bold, Comfortaa_400Regular, useFonts } from '@expo-google-fonts/comfortaa';
-import { LinearGradient } from "expo-linear-gradient";
+import React, { useContext, useEffect, useState } from "react";
+import {
+  Image,
+  TouchableOpacity,
+  ImageBackground,
+  StyleSheet,
+  View,
+} from "react-native";
+import {
+  Comfortaa_700Bold,
+  Comfortaa_400Regular,
+  useFonts,
+} from "@expo-google-fonts/comfortaa";
+import { OpenSans_400Regular } from "@expo-google-fonts/open-sans";
+import DashboardHeader from "./components/DashboardHeader";
 import CustomInput from "./components/generics/CustomInput";
-import CustomButton from "./components/generics/CustomButton";
 import CustomTouchableOpacity from "./components/generics/CustomTouchableOpacity";
-import Heading from "./components/generics/Heading";
 import styled from "styled-components/native";
-import logo from "./images/logo-tap.png";
+import RulewebContext from "./RulewebContext";
+import PrizeStat from "./components/generics/PrizeStat";
+import APIHandler from "./APIHandler";
 
-const HeaderLogo = styled.Image`
-  margin: 44px auto 60px;
-  width: 157px;
-  height: 53px;
-`;
 const Wrapper = styled.View`
   background: white;
   display: flex;
   flex-direction: column;
   height: 100%;
 `;
-const Header = styled.View`
-  padding: 36px 16px 12px;
+const ContentWrapper = styled.View`
+  background: white;
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  flex-direction: column;
+  flex-grow: 1;
+  padding: 20px 16px 24px;
+  max-width: 600px;
+  align-self: center;
 `;
 const Centered = styled.View`
   background: white;
-  padding: 16px 24px;
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
   align-content: stretch;
   align-items: stretch;
-  height: 100%;
 `;
 const Title = styled.Text`
   font-size: 18px;
   line-height: 24px;
-  text-align: center;
+  text-align: left;
   letter-spacing: 0.15px;
   color: #002350;
 `;
 const Paragraph = styled.Text`
-  font-size: 16px;
+  font-size: 14px;
   line-height: 24px;
-  text-align: center;
+  text-align: left;
   letter-spacing: 0.15px;
   color: #353535;
 `;
 
-/* BACKGROUND-IMAGE Y BACKGROUND-SIZE TIRAN ERROR
-const CommerceLogo = styled.View`
-  border: 1px solid #8495aa;
-  width: 32px;
-  height: 32px;
-  background-image: url('https://picsum.photos/200');
-  background-size: cover;
-  border-radius: 50%;
-`;
-*/
-
-const CommerceLogo = styled.View`
-  borderWidth: 1px; 
-  borderColor: "rgb(132, 149, 170)";
-  width: 32px;
-  height: 32px;
-  resizeMode: cover;
-  borderRadius: 50px;
-`;
-
 export default function Dashboard({ navigation }) {
+  const [userEmail, setUserEmail] = useState("");
+  const [prizeToken, setPrizeToken] = useState("");
+  const [shopRewards, setShopRewards] = useState("");
+  const { isAuthorized, setIsAuthorized, shopData, email } =
+    useContext(RulewebContext);
   useFonts({
-    Comfortaa_700Bold, Comfortaa_400Regular
+    Comfortaa_700Bold,
+    Comfortaa_400Regular,
+    OpenSans_400Regular,
   });
-  return (
-    <Wrapper>
-      <LinearGradient colors={["#14D2B9", "#8C91FF"]}>
-        <Header>
-          <CommerceLogo source={"url('https://picsum.photos/200')"}/>
-          <Title style={{fontFamily: 'Comfortaa_700Bold'}}>RuleTap</Title>
-          <Image
-            source={require('./images/log-in.png')}
-            style={{width: 24, height: 24}}
+  useEffect(() => {
+    getRewards();
+  }, []);
+  async function getRewards() {
+    const res = await APIHandler.post("/rewards/byShop", { email });
+    setShopRewards(res.data);
+  }
+  const handleSubmit = (e) => {
+    APIHandler.post("/rewards/redeem", {
+      token: prizeToken,
+      email: userEmail,
+      shop: shopData.email,
+    })
+      .then((res) => {
+        if (res.status === 200) {
+          navigation.navigate("Premio Canjeado");
+        }
+      })
+      .catch((err) => {
+        console.log("Hubo un error, intenta nuevamente");
+      });
+  };
+
+  if (isAuthorized ) {
+    return (
+      <Wrapper>
+        <DashboardHeader
+          onPress={() => setIsAuthorized(false)}
+          shopData={shopData}
+        />
+        <ContentWrapper>
+          <Centered style={{ flexGrow: 0, rowGap: 12 }}>
+            <Title style={{ fontFamily: "Comfortaa_700Bold" }}>
+              Ingresá el mail y el código de canje.
+            </Title>
+            <Paragraph style={{ fontFamily: "OpenSans_400Regular" }}>
+              Este se envió por mail al cliente al momento de ganar el premio.
+            </Paragraph>
+          </Centered>
+          <Centered
+            style={{ flexGrow: 0, rowGap: 15, marginTop: 34, marginBottom: 40 }}
+          >
+            <CustomInput
+              placeholder="Email"
+              value={userEmail}
+              onChangeText={(txt) => setUserEmail(txt)}
+            />
+            <CustomInput
+              placeholder="Codigo de canje"
+              value={prizeToken}
+              onChangeText={(txt) => setPrizeToken(txt)}
+            />
+          </Centered>
+          
+          <CustomTouchableOpacity
+            title="Canjear"
+            behavior={handleSubmit}
           />
-        </Header>
-      </LinearGradient>
-      <Centered style={{flexGrow: 1, rowGap: 24}}>
-        <Title style={{fontFamily: 'Comfortaa_700Bold'}}>Ingresá el mail y el código de canje.</Title>
-        <Paragraph style={{fontFamily: 'Comfortaa_400Regular'}}>Este se envió por mail al cliente al momento de ganar el premio.</Paragraph>
-        <CustomInput
-          placeholder="Email"
-          infoText=""
+        </ContentWrapper>
+        <PrizeStat
+          name="Total premios entregados"
+          number={shopRewards.redeemed}
         />
-        <CustomInput
-          placeholder="Codigo de canje"
-          infoText=""
-        />
-        <CustomTouchableOpacity
-          title="Canjear"
-          behavior={() => navigation.navigate("Premio Canjeado")}
-        />
-      </Centered>
-    </Wrapper>
-  );
+        <PrizeStat name="Listos para canjear" number={shopRewards.available} />
+      </Wrapper>
+    );
+  } else {
+    navigation.navigate("Err");
+  }
 }
