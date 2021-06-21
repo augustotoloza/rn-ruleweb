@@ -1,5 +1,5 @@
 import "react-native-gesture-handler";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Alert, View } from "react-native";
 import CustomInput from "./components/generics/CustomInput";
 import CustomTouchableOpacity from "./components/generics/CustomTouchableOpacity";
@@ -9,7 +9,6 @@ import logo from "./images/logo-tap.png";
 import APIHandler from "./APIHandler";
 import RulewebContext from "./RulewebContext";
 import { EmailIsValid, isComplete } from "./Validations";
-import { useState } from "react/cjs/react.development";
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as Device from "expo-device";
 
