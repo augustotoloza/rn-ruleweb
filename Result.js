@@ -4,7 +4,6 @@ import { View } from "react-native";
 import styled from "styled-components/native";
 import success from "./images/success_ilus.png";
 import CustomTouchableOpacity from "./components/generics/CustomTouchableOpacity";
-import Heading from "./components/generics/Heading";
 import Message from "./components/generics/Message";
 import { OpenSans_400Regular, useFonts } from "@expo-google-fonts/open-sans";
 import { SafeAreaView } from "react-native-safe-area-context";

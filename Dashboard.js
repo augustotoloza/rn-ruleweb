@@ -115,61 +115,54 @@ export default function Dashboard({ navigation }) {
       });
   };
 
-  if (isAuthorized) {
-    return (
-      <SafeAreaView>
-        <Wrapper>
-          <DashboardHeader
-            onPress={() => setIsAuthorized(false)}
-            shopData={shopData}
-          />
-          <ContentWrapper>
-            <Centered style={{ flexGrow: 0, rowGap: 12 }}>
-              <Title style={{ fontFamily: "Comfortaa_700Bold" }}>
-                Ingresá el mail y el código de canje.
-              </Title>
-              <Paragraph style={{ fontFamily: "OpenSans_400Regular" }}>
-                Este se envió por mail al cliente al momento de ganar el premio.
-              </Paragraph>
-            </Centered>
-            <Centered
-              style={{
-                flexGrow: 0,
-                rowGap: 15,
-                marginTop: 34,
-                marginBottom: 40,
-              }}
-            >
-              <CustomInput
-                placeholder="Email"
-                value={userEmailInp}
-                onChangeText={(txt) => handleUserEmail(txt)}
-              />
-              <CustomInput
-                placeholder="Codigo de canje"
-                value={prizeToken}
-                onChangeText={(txt) => setPrizeToken(txt)}
-              />
-            </Centered>
-
-            <CustomTouchableOpacity
-              title="Canjear"
-              behavior={handleSubmit}
-              disabled={!isComplete(userEmail, prizeToken)}
+  return (
+    <SafeAreaView>
+      <Wrapper>
+        <DashboardHeader
+          onPress={() => setIsAuthorized(false)}
+          shopData={shopData}
+        />
+        <ContentWrapper>
+          <Centered style={{ flexGrow: 0, rowGap: 12 }}>
+            <Title style={{ fontFamily: "Comfortaa_700Bold" }}>
+              Ingresá el mail y el código de canje.
+            </Title>
+            <Paragraph style={{ fontFamily: "OpenSans_400Regular" }}>
+              Este se envió por mail al cliente al momento de ganar el premio.
+            </Paragraph>
+          </Centered>
+          <Centered
+            style={{
+              flexGrow: 0,
+              rowGap: 15,
+              marginTop: 34,
+              marginBottom: 40,
+            }}
+          >
+            <CustomInput
+              placeholder="Email"
+              value={userEmailInp}
+              onChangeText={(txt) => handleUserEmail(txt)}
             />
-          </ContentWrapper>
-          <PrizeStat
-            name="Total premios entregados"
-            number={shopRewards.redeemed}
+            <CustomInput
+              placeholder="Codigo de canje"
+              value={prizeToken}
+              onChangeText={(txt) => setPrizeToken(txt)}
+            />
+          </Centered>
+
+          <CustomTouchableOpacity
+            title="Canjear"
+            behavior={handleSubmit}
+            disabled={!isComplete(userEmail, prizeToken)}
           />
-          <PrizeStat
-            name="Listos para canjear"
-            number={shopRewards.available}
-          />
-        </Wrapper>
-      </SafeAreaView>
-    );
-  } else {
-    navigation.navigate("Err");
-  }
+        </ContentWrapper>
+        <PrizeStat
+          name="Total premios entregados"
+          number={shopRewards.redeemed}
+        />
+        <PrizeStat name="Listos para canjear" number={shopRewards.available} />
+      </Wrapper>
+    </SafeAreaView>
+  );
 }

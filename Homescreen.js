@@ -1,6 +1,6 @@
 import "react-native-gesture-handler";
 import React, { useContext } from "react";
-import { View } from "react-native";
+import { Alert, View } from "react-native";
 import CustomInput from "./components/generics/CustomInput";
 import CustomTouchableOpacity from "./components/generics/CustomTouchableOpacity";
 import Heading from "./components/generics/Heading";
@@ -11,6 +11,7 @@ import RulewebContext from "./RulewebContext";
 import { EmailIsValid, isComplete } from "./Validations";
 import { useState } from "react/cjs/react.development";
 import { SafeAreaView } from "react-native-safe-area-context";
+import * as Device from "expo-device";
 
 const HeaderLogo = styled.Image`
   margin: 44px auto 60px;
@@ -44,6 +45,10 @@ export default function Homescreen({ navigation }) {
     EmailIsValid(inp) && setEmail(inp);
     setEmailInp(inp);
   };
+  function clearInputs() {
+    setEmailInp("");
+    setPassword("");
+  }
   const handleSubmit = (e) => {
     APIHandler.post("/shops/login", { email, password })
       .then((res) => {
@@ -53,15 +58,25 @@ export default function Homescreen({ navigation }) {
             logo: res.data.logo.url,
             email: res.data.email,
           });
+          clearInputs();
           navigation.navigate("Dashboard");
         }
       })
       .catch((err) => {
-        console.log("Hubo un error, intenta nuevamente");
+        Device.brand != null
+          ? Alert.alert(
+              "Hubo un error",
+              "Verifica tus datos e intenta nuevamente",
+              [{ text: "OK", onPress: () => clearInputs() }]
+            )
+          : () => {
+              alert("Hubo un error. Verifica tus datos e intenta nuevamente.");
+              clearInputs();
+            };
       });
   };
   return (
-    <SafeAreaView style={{display: "flex", flex: 1}}>
+    <SafeAreaView style={{ display: "flex", flex: 1 }}>
       <Wrapper>
         <HeaderLogo source={logo} />
         <Heading title="Iniciar Sesión" />

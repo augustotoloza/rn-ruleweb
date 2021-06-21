@@ -36,8 +36,7 @@ export default function ErrorScreen({ route, navigation }) {
   });
   const {error} = route.params;
   const titleTextValue = error === "Incorrect Token" ? "El token ingresado es incorrecto" : error === "Email incorrect" ? "Este cliente no tiene premios" : "Hubo un error";
-const descriptionTextValue =
-  "Para ganar un premio debe participar en www.rulewebtap.com";
+const descriptionTextValue = error ? "Para ganar un premio debe participar en www.rulewebtap.com" : "Intenta nuevamente";
   return (
     <Wrapper>
       <View style={{ flexGrow: 1, justifyContent: "center" }}>

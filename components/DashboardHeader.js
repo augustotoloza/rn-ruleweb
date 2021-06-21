@@ -37,7 +37,7 @@ const DashboardHeader = (props) => {
       <Header>
         <View style={rnStyles.bgWrapper}>
           <ImageBackground
-            source={APIHandler.defaults.baseURL + shopData.logo}
+            source={{uri: APIHandler.defaults.baseURL + shopData.logo}}
             style={rnStyles.bgContainer}
             imageStyle={rnStyles.bgImg}
           />
